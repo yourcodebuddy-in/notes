@@ -6,56 +6,47 @@ import {
   DialogOrDrawerHeader,
   DialogOrDrawerTitle,
 } from "@/components/ui/dialog-or-drawer";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { templates } from "@/data/templates";
-import { createNote as createNoteAction } from "@/db/actions";
+import { createNote } from "@/db/actions";
+import { Page } from "@/db/types";
 import { calculateReadTime, parseEditorJSContentToExcerpt } from "@/lib/editorjs";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
-  pageId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSuccess?: () => void;
+  pages: Pick<Page, "id" | "title">[];
 }
 
-export function NewNoteFormDialog({ open, onOpenChange, pageId, onSuccess }: Props) {
+export function CloneNoteFormDialog({ open, onOpenChange, pages }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [templateId, setTemplateId] = useState("blank");
+  const [templateId, setTemplateId] = useState("");
+  const [pageId, setPageId] = useState("");
 
-  async function createNote(e: React.FormEvent<HTMLFormElement>) {
+  async function cloneTemplateToNote(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     try {
-      e.preventDefault();
       setIsLoading(true);
-      const formData = new FormData(e.target as HTMLFormElement);
-      const title = formData.get("title") as string | null;
-      if (!title) return;
-
       const template = templates.find((t) => t.id === templateId);
-      if (!template && templateId !== "blank") {
+      if (!template) {
         toast.error("Invalid template");
         return;
       }
-
-      const data: { title: string; pageId: string; content?: string; excerpt?: string; readTime?: number } = {
-        title,
+      const excerpt = parseEditorJSContentToExcerpt(template.content);
+      const readTime = calculateReadTime(template.content);
+      await createNote({
+        title: template.title,
         pageId,
-      };
-
-      if (templateId !== "blank" && template) {
-        data.content = JSON.stringify(template.content);
-        data.excerpt = parseEditorJSContentToExcerpt(template.content);
-        data.readTime = calculateReadTime(template.content);
-      }
-
-      await createNoteAction(data);
+        content: JSON.stringify(template.content),
+        excerpt,
+        readTime,
+      });
       onOpenChange(false);
-      onSuccess?.();
     } catch (_error) {
-      toast.error("Failed to create note");
+      toast.error("Failed to clone template");
     } finally {
       setIsLoading(false);
     }
@@ -65,19 +56,16 @@ export function NewNoteFormDialog({ open, onOpenChange, pageId, onSuccess }: Pro
     <DialogOrDrawer open={open} onOpenChange={onOpenChange}>
       <DialogOrDrawerContent>
         <DialogOrDrawerHeader>
-          <DialogOrDrawerTitle>New Note</DialogOrDrawerTitle>
-          <DialogOrDrawerDescription>Record your thoughts and ideas in a new note</DialogOrDrawerDescription>
+          <DialogOrDrawerTitle>Clone Template</DialogOrDrawerTitle>
+          <DialogOrDrawerDescription>Create a new note from a template.</DialogOrDrawerDescription>
         </DialogOrDrawerHeader>
-        <form className="space-y-4" onSubmit={createNote}>
-          <Label>Title</Label>
-          <Input placeholder="Title" name="title" required disabled={isLoading} />
+        <form className="space-y-4" onSubmit={cloneTemplateToNote}>
           <Label>Template</Label>
           <Select value={templateId} onValueChange={setTemplateId}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a template" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="blank">Blank</SelectItem>
               {templates.map((template) => (
                 <SelectItem key={template.title} value={template.id}>
                   {template.title}
@@ -85,8 +73,21 @@ export function NewNoteFormDialog({ open, onOpenChange, pageId, onSuccess }: Pro
               ))}
             </SelectContent>
           </Select>
+          <Label>Workspace</Label>
+          <Select value={pageId} onValueChange={setPageId}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a workspace" />
+            </SelectTrigger>
+            <SelectContent>
+              {pages.map((page) => (
+                <SelectItem key={page.id} value={page.id}>
+                  {page.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Button className="w-full" disabled={isLoading} isLoading={isLoading}>
-            Create
+            Confirm
           </Button>
         </form>
       </DialogOrDrawerContent>

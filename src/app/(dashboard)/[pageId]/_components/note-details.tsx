@@ -1,11 +1,12 @@
 "use client";
-import { NoteEditor } from "@/components/note-editor";
 import { updateNote } from "@/db/actions";
-import { calculateReadTime, parseEditorJSContent } from "@/lib/editorjs";
+import { calculateReadTime, parseEditorJSContentToExcerpt } from "@/lib/editorjs";
 import EditorJS from "@editorjs/editorjs";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { NoteActions } from "./note-actions";
+const NoteEditor = dynamic(() => import("@/components/note-editor"), { ssr: false });
 
 interface Props {
   id: string;
@@ -34,7 +35,7 @@ export function NoteDetails({ id, content, pinned }: Props) {
       setIsSaving(true);
       const data = await editorRef.current?.save();
       if (!data) return;
-      const excerpt = parseEditorJSContent(data);
+      const excerpt = parseEditorJSContentToExcerpt(data);
       const readTime = calculateReadTime(data);
       await updateNote({ id, content: JSON.stringify(data), excerpt, readTime });
       setNeedsSaving(false);

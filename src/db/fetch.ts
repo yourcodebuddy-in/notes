@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { notes, pages } from "@/db/schema/notes";
+import { notes, pages, templates } from "@/db/schema/notes";
 import { getSessionStrict } from "@/lib/auth";
 import { and, desc, eq, ilike } from "drizzle-orm";
 
@@ -64,4 +64,14 @@ export async function getNote({ noteId, status }: { noteId: string; status: "act
     .limit(1);
 
   return note;
+}
+
+export async function getTemplates({ search }: { search?: string }) {
+  const session = await getSessionStrict();
+  const data = await db.query.templates.findMany({
+    where: eq(templates.userId, session.user.id),
+    ...(search ? { where: ilike(templates.title, `%${search}%`) } : {}),
+    orderBy: [desc(templates.createdAt)],
+  });
+  return data;
 }

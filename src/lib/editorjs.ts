@@ -1,6 +1,6 @@
 import { OutputData } from "@editorjs/editorjs";
 
-export function parseEditorJSContent(data: OutputData): string {
+export function parseEditorJSContentToExcerpt(data: OutputData): string {
   if (!data?.blocks?.length) {
     return "";
   }

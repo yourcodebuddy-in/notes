@@ -42,7 +42,7 @@ export function ColorOptions({ selectedColor, setSelectedColor }: Props) {
           <CarouselItem key={color} className="pl-2 basis-1/6 md:basis-[calc(1/8*100%)]">
             <button
               type="button"
-              className="w-full aspect-square rounded-lg relative"
+              className="w-full aspect-square rounded-lg relative cursor-pointer"
               style={{ backgroundColor: color }}
               onClick={() => setSelectedColor?.(color)}
             >

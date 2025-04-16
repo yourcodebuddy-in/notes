@@ -15,7 +15,7 @@ export function EditableTitle({ id, title }: Props) {
         id,
         title: title ?? "Untitled",
       });
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to update title");
     }
   }

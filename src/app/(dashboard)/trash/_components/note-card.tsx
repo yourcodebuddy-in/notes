@@ -44,10 +44,10 @@ export function NoteCard({ note }: Props) {
   return (
     <Card className="shadow-none bg-secondary/60 p-5">
       <CardHeader className="!p-0">
-        <div className="grid grid-cols-[1fr_auto] gap-2 items-center">
+        <div className="grid grid-cols-[1fr_auto] gap-2 items-start">
           <div className="space-y-2">
             <CardTitle className="pr-2">{note.title}</CardTitle>
-            <CardDescription className="break-all">{note.excerpt}</CardDescription>
+            <CardDescription className="break-all line-clamp-2">{note.excerpt}</CardDescription>
           </div>
           <div className="flex gap-2">
             <Button

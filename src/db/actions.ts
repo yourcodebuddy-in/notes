@@ -52,9 +52,17 @@ export async function updateNote({ id, ...data }: Partial<Note> & { id: string }
     .where(and(eq(notes.id, id), eq(notes.userId, session.user.id)));
 }
 
-export async function createNote(data: Pick<Note, "title" | "pageId">) {
+export async function createNote(
+  data: Pick<Note, "title" | "pageId"> & { content?: string; excerpt?: string; readTime?: number }
+) {
   const session = await getSessionStrict();
-  await db.insert(notes).values({ ...data, userId: session.user.id, content: "", excerpt: "Write something..." });
+  await db.insert(notes).values({
+    ...data,
+    userId: session.user.id,
+    content: data.content || "",
+    excerpt: data.excerpt || "Write something...",
+    readTime: data.readTime || 0,
+  });
 }
 
 export async function deleteNote(id: string) {

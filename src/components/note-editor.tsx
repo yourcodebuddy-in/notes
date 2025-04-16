@@ -35,7 +35,7 @@ interface Props {
 
 export type NoteEditorStatus = "idle" | "saving" | "saved" | "error";
 
-export function NoteEditor({ defaultContent, ref, onReady, onChange }: Props) {
+export default function NoteEditor({ defaultContent, ref, onReady, onChange }: Props) {
   const editorContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

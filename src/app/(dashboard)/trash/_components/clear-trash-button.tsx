@@ -12,7 +12,7 @@ export function ClearTrashButton() {
   async function clearTrash() {
     try {
       setIsLoading(true);
-      clearTrashAction();
+      await clearTrashAction();
       router.refresh();
     } catch (_error) {
       toast.error("Failed to clear trash");
