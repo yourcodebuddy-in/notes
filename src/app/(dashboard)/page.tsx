@@ -15,13 +15,13 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <div>
-      <div className="space-y-8">
+      <div className="space-y-10">
         <div className="flex flex-wrap gap-4 items-center justify-between">
           <div className="space-y-2">
             <h1 className="text-xl md:text-2xl font-bold flex items-center gap-2">
-              <IconFolderFilled className="text-primary" /> Workspace
+              <IconFolderFilled className="text-primary" /> Workspaces
             </h1>
-            <p className="text-sm text-muted-foreground">Create or manage your workspace</p>
+            <p className="text-sm text-muted-foreground">Create or manage your workspaces</p>
           </div>
           <div>
             <NewPageButton variant="default" className="[&_svg]:hidden" />

@@ -2,6 +2,7 @@ import GirlSleepingOnDeskImg from "@/assets/girl-sleeping-on-a-desk.png";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getNote } from "@/db/fetch";
 import Image from "next/image";
+import { EditableTitle } from "../_components/editable-title";
 import { NoteDetails } from "../_components/note-details";
 import { Default } from "./default";
 
@@ -34,7 +35,9 @@ export default async function Page({ searchParams }: Props) {
               className="w-full max-w-md h-auto rounded-xl mx-auto"
             />
           </div>
-          <h1 className="text-lg lg:text-xl font-bold max-w-[650px] mx-auto">{data.title}</h1>
+          <div className="max-w-[650px] mx-auto">
+            <EditableTitle id={note} title={data.title} />
+          </div>
           <NoteDetails key={note} id={note} content={data.content} pinned={data.pinned} />
         </div>
       </ScrollArea>

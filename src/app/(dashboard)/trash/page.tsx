@@ -1,9 +1,8 @@
 import { getNotes } from "@/db/fetch";
 import { IconTrash } from "@tabler/icons-react";
 import { Suspense } from "react";
-import { NotesListSkeleton } from "../[pageId]/_components/notes-list";
 import { ClearTrashButton } from "./_components/clear-trash-button";
-import { NotesList } from "./_components/notes-list";
+import { NotesList, NotesListSkeleton } from "./_components/notes-list";
 
 interface Props {
   searchParams: Promise<{

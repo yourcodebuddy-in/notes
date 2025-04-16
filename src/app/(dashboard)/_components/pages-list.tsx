@@ -9,7 +9,7 @@ interface Props {
 export async function PagesList({ pages }: Props) {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="flex flex-wrap justify-baseline gap-6 md:gap-10">
         {pages.map((page) => (
           <PageCard key={page.id} page={page} />
         ))}
@@ -25,9 +25,9 @@ export async function PagesList({ pages }: Props) {
 
 export function PagesListSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Skeleton key={index} className="w-full h-36" />
+    <div className="flex flex-wrap justify-baseline gap-6 md:gap-10">
+      {Array.from({ length: 10 }).map((_, index) => (
+        <Skeleton key={index} className="w-52 h-36" />
       ))}
     </div>
   );

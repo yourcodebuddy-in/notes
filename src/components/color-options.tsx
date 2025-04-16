@@ -8,7 +8,7 @@ interface Props {
 }
 
 const colors = [
-  "#FFB14F",
+  "#F27700",
   "#FF0000",
   "#FF8C00",
   "#FFD700",

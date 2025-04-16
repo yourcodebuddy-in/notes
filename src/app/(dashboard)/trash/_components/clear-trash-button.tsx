@@ -22,7 +22,7 @@ export function ClearTrashButton() {
   }
 
   return (
-    <Button onClick={clearTrash} disabled={isLoading} isLoading={isLoading}>
+    <Button variant="destructive" onClick={clearTrash} disabled={isLoading} isLoading={isLoading}>
       Clear Trash
     </Button>
   );

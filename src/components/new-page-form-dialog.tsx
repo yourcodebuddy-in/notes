@@ -24,7 +24,7 @@ interface Props {
 export function NewPageFormDialog({ open, onOpenChange }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState<string>("IconHash");
-  const [selectedColor, setSelectedColor] = useState<string>("#FFB14F");
+  const [selectedColor, setSelectedColor] = useState<string>("#F27700");
   const router = useRouter();
 
   async function createPage(e: React.FormEvent<HTMLFormElement>) {
