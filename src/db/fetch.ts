@@ -3,6 +3,16 @@ import { notes, pages } from "@/db/schema/notes";
 import { getSessionStrict } from "@/lib/auth";
 import { and, desc, eq, ilike } from "drizzle-orm";
 
+export async function getPages({ search }: { search?: string }) {
+  const session = await getSessionStrict();
+  const data = await db.query.pages.findMany({
+    where: eq(pages.userId, session.user.id),
+    ...(search ? { where: ilike(pages.title, `%${search}%`) } : {}),
+    orderBy: [desc(pages.createdAt)],
+  });
+  return data;
+}
+
 export async function getPage(pageId: string) {
   const session = await getSessionStrict();
   const [page] = await db
@@ -19,7 +29,7 @@ export async function getNotes({
   status,
   search,
 }: {
-  pageId: string;
+  pageId?: string;
   status: "active" | "trashed" | "archived";
   search?: string;
 }) {
@@ -35,7 +45,7 @@ export async function getNotes({
     .from(notes)
     .where(
       and(
-        eq(notes.pageId, pageId),
+        pageId ? eq(notes.pageId, pageId) : undefined,
         eq(notes.userId, session.user.id),
         search ? ilike(notes.title, `%${search}%`) : undefined,
         eq(notes.status, status)

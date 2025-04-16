@@ -1,7 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { getNotes } from "@/db/fetch";
 import { cache, Suspense } from "react";
-import { NotesList } from "./_components/notes-list";
-import { getNotes } from "./_utils/fetch";
+import { NotesList, NotesListSkeleton } from "./_components/notes-list";
 
 interface Props {
   params: Promise<{ pageId: string }>;
@@ -10,15 +9,7 @@ interface Props {
 
 export default function Page({ params, searchParams }: Props) {
   return (
-    <Suspense
-      fallback={
-        <div className="space-y-4 hidden lg:block">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <Skeleton key={index} className="h-30 rounded-xl" />
-          ))}
-        </div>
-      }
-    >
+    <Suspense fallback={<NotesListSkeleton />}>
       <PageWithFetch params={params} searchParams={searchParams} />
     </Suspense>
   );

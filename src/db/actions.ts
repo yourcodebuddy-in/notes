@@ -59,10 +59,10 @@ export async function createNote(data: Pick<Note, "title" | "pageId">) {
 
 export async function deleteNote(id: string) {
   const session = await getSessionStrict();
-  await db
-    .update(notes)
-    .set({
-      status: "trashed",
-    })
-    .where(and(eq(notes.id, id), eq(notes.userId, session.user.id)));
+  await db.delete(notes).where(and(eq(notes.id, id), eq(notes.userId, session.user.id)));
+}
+
+export async function clearTrash() {
+  const session = await getSessionStrict();
+  await db.delete(notes).where(and(eq(notes.status, "trashed"), eq(notes.userId, session.user.id)));
 }

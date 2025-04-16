@@ -1,4 +1,5 @@
 import { NewPageButton } from "@/components/new-page-button";
+import { getPages } from "@/db/fetch";
 import { IconFolderFilled } from "@tabler/icons-react";
 import { Suspense } from "react";
 import { PagesList, PagesListSkeleton } from "./_components/pages-list";
@@ -23,13 +24,18 @@ export default async function Page({ searchParams }: Props) {
             <p className="text-sm text-muted-foreground">Create or manage your workspace</p>
           </div>
           <div>
-            <NewPageButton variant="default" />
+            <NewPageButton variant="default" className="[&_svg]:hidden" />
           </div>
         </div>
         <Suspense fallback={<PagesListSkeleton />}>
-          <PagesList search={search} />
+          <PageWithFetch search={search} />
         </Suspense>
       </div>
     </div>
   );
+}
+
+async function PageWithFetch({ search }: { search?: string }) {
+  const pages = await getPages({ search });
+  return <PagesList pages={pages} />;
 }

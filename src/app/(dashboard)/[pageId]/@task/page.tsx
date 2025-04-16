@@ -1,8 +1,8 @@
 import GirlSleepingOnDeskImg from "@/assets/girl-sleeping-on-a-desk.png";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getNote } from "@/db/fetch";
 import Image from "next/image";
 import { NoteDetails } from "../_components/note-details";
-import { getNote } from "../_utils/fetch";
 import { Default } from "./default";
 
 interface Props {

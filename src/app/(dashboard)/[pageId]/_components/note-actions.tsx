@@ -1,4 +1,4 @@
-import { deleteNote as deleteNoteAction, updateNote } from "@/db/actions";
+import { updateNote } from "@/db/actions";
 import { parseEditorJSToText } from "@/lib/editorjs";
 import { cn } from "@/lib/utils";
 import { IconCopy, IconDownload, IconPin, IconPinned, IconTrash } from "@tabler/icons-react";
@@ -70,7 +70,7 @@ export function NoteActions({ id, content, pinned, className }: Props) {
   async function deleteNote() {
     try {
       setIsDeleting(true);
-      await deleteNoteAction(id);
+      await updateNote({ id, status: "trashed" });
       toast.success("Note deleted successfully");
       router.replace("?");
     } catch (_error) {

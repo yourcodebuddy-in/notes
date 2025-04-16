@@ -1,6 +1,7 @@
 import { NoteCard } from "@/app/(dashboard)/[pageId]/_components/note-card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Note } from "@/db/types";
 import { cn } from "@/lib/utils";
 import { IconChevronLeft } from "@tabler/icons-react";
@@ -35,6 +36,16 @@ export function NotesList({ notes, activeNoteId }: Props) {
           )}
         </div>
       </ScrollArea>
+    </div>
+  );
+}
+
+export function NotesListSkeleton() {
+  return (
+    <div className="space-y-4 hidden lg:block">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <Skeleton key={index} className="h-30 rounded-xl" />
+      ))}
     </div>
   );
 }

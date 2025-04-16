@@ -1,14 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { getPages } from "../_utils/fetch";
+import { Page } from "@/db/types";
 import { PageCard } from "./page-card";
 
 interface Props {
-  search?: string;
+  pages: Page[];
 }
 
-export async function PagesList({ search }: Props) {
-  const pages = await getPages({ search });
-
+export async function PagesList({ pages }: Props) {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

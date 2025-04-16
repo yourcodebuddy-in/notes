@@ -1,9 +1,9 @@
 import { pageIcons } from "@/data/icons";
+import { getPage } from "@/db/fetch";
 import { IconHash } from "@tabler/icons-react";
 import { redirect } from "next/navigation";
 import React from "react";
 import { PageFloatingOptions } from "./_components/page-floating-options";
-import { getPage } from "./_utils/fetch";
 
 interface Props {
   children: React.ReactNode;

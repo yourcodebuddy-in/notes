@@ -1,4 +1,3 @@
-import { getPages } from "@/app/(dashboard)/_utils/fetch";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -6,6 +5,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { getPages } from "@/db/fetch";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { PageMenuItem } from "./page-menu-item";
