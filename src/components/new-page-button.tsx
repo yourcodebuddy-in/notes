@@ -4,19 +4,23 @@ import { useState } from "react";
 import { NewPageFormDialog } from "./new-page-form-dialog";
 import { Button } from "./ui/button";
 
-export function NewPageButton() {
+interface Props {
+  variant?: "ghost" | "default";
+}
+
+export function NewPageButton({ variant = "ghost" }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <Button
-        variant="ghost"
+        variant={variant}
         className="justify-start group-data-[state=collapsed]:p-1.5"
-        title="New page"
+        title="New workspace"
         onClick={() => setOpen(true)}
       >
         <IconCirclePlusFilled className="!size-5" />
-        <span className="group-data-[state=collapsed]:hidden">New page</span>
+        <span className="group-data-[state=collapsed]:hidden">New workspace</span>
       </Button>
       <NewPageFormDialog open={open} onOpenChange={setOpen} />
     </>

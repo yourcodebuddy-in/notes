@@ -23,13 +23,13 @@ export function PageMenu({ page, children }: Props) {
   const router = useRouter();
 
   async function handleDeletePage() {
-    const toastId = toast.loading("Deleting page...");
+    const toastId = toast.loading("Deleting workspace...");
     try {
       await deletePage(page.id);
       router.refresh();
-      toast.success("Page deleted", { id: toastId });
+      toast.success("Workspace deleted", { id: toastId });
     } catch (_error) {
-      toast.error("Failed to delete page", { id: toastId });
+      toast.error("Failed to delete workspace", { id: toastId });
     }
   }
 

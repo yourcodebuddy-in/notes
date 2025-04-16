@@ -31,7 +31,7 @@ export function NotesList({ notes, activeNoteId }: Props) {
             </Link>
           ))}
           {notes.length === 0 && (
-            <div className="flex items-center justify-center h-40 border border-dashed rounded-lg">No notes yet</div>
+            <div className="flex items-center justify-center h-40 border border-dashed rounded-lg">No notes found</div>
           )}
         </div>
       </ScrollArea>

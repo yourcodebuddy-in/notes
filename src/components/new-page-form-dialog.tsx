@@ -24,7 +24,7 @@ interface Props {
 export function NewPageFormDialog({ open, onOpenChange }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState<string>("IconHash");
-  const [selectedColor, setSelectedColor] = useState<string>("#ffb14f");
+  const [selectedColor, setSelectedColor] = useState<string>("#FFB14F");
   const router = useRouter();
 
   async function createPage(e: React.FormEvent<HTMLFormElement>) {
@@ -44,7 +44,7 @@ export function NewPageFormDialog({ open, onOpenChange }: Props) {
       onOpenChange(false);
       router.push(`/${id}`);
     } catch (_error) {
-      toast.error("Failed to create page");
+      toast.error("Failed to create workspace");
     } finally {
       setIsLoading(false);
     }
@@ -54,14 +54,14 @@ export function NewPageFormDialog({ open, onOpenChange }: Props) {
     <DialogOrDrawer open={open} onOpenChange={onOpenChange}>
       <DialogOrDrawerContent>
         <DialogOrDrawerHeader>
-          <DialogOrDrawerTitle>New page</DialogOrDrawerTitle>
-          <DialogOrDrawerDescription>Create a new page to start writing.</DialogOrDrawerDescription>
+          <DialogOrDrawerTitle>New workspace</DialogOrDrawerTitle>
+          <DialogOrDrawerDescription>Create a new workspace to start writing.</DialogOrDrawerDescription>
         </DialogOrDrawerHeader>
         <form className="space-y-4" onSubmit={createPage}>
           <Label>Name</Label>
-          <Input name="title" placeholder="My new page" />
+          <Input name="title" placeholder="My new workspace" />
           <Label>Description</Label>
-          <Textarea name="description" placeholder="Write a short description for your page" />
+          <Textarea name="description" placeholder="Write a short description for your workspace" />
           <Label>Icon</Label>
           <IconOptions selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} />
           <Label>Color</Label>

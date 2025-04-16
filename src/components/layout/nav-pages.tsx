@@ -1,3 +1,4 @@
+import { getPages } from "@/app/(dashboard)/_utils/fetch";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -5,10 +6,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { db } from "@/db";
-import { pages } from "@/db/schema/notes";
-import { getSessionStrict } from "@/lib/auth";
-import { eq } from "drizzle-orm";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { PageMenuItem } from "./page-menu-item";
@@ -35,10 +32,7 @@ export function NavPages() {
 }
 
 async function NavPagesWithFetch() {
-  const session = await getSessionStrict();
-  const userPages = await db.query.pages.findMany({
-    where: eq(pages.userId, session.user.id),
-  });
+  const userPages = await getPages({});
 
   return (
     <SidebarGroup>
@@ -50,7 +44,7 @@ async function NavPagesWithFetch() {
         {userPages.length === 0 && (
           <SidebarMenuItem className="group-data-[state=collapsed]:hidden">
             <SidebarMenuButton size="lg" className="text-xs justify-center border border-dashed h-20">
-              No pages yet
+              No workspaces found
             </SidebarMenuButton>
           </SidebarMenuItem>
         )}
