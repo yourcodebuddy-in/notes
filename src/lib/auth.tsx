@@ -7,6 +7,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { magicLink } from "better-auth/plugins";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { sendMail } from "./mail";
 
 export const auth = betterAuth({
@@ -53,5 +54,13 @@ export async function getSession() {
   const session = await auth.api.getSession({
     headers: headerList,
   });
+  return session;
+}
+
+export async function getSessionStrict() {
+  const session = await getSession();
+  if (!session?.user) {
+    redirect("/login");
+  }
   return session;
 }

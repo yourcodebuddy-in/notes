@@ -1,3 +1,4 @@
+import { ProgressBarProvider } from "@/components/layout/progress-bar-provider";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <Toaster />
-        {children}
+        <ProgressBarProvider>{children}</ProgressBarProvider>
       </body>
     </html>
   );
