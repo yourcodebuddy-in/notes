@@ -12,11 +12,8 @@ import Link from "@editorjs/link";
 import List from "@editorjs/list";
 // @ts-expect-error Not Typed correctly
 import Marker from "@editorjs/marker";
-import Quote from "@editorjs/quote";
 // @ts-expect-error Not Typed correctly
 import Raw from "@editorjs/raw";
-// @ts-expect-error Not Typed correctly
-import SimpleImage from "@editorjs/simple-image";
 import Table from "@editorjs/table";
 import Underline from "@editorjs/underline";
 // @ts-expect-error Not Typed correctly
@@ -60,10 +57,6 @@ export default function NoteEditor({ defaultContent, ref, onReady, onChange }: P
           class: List,
           inlineToolbar: true,
         },
-        quote: {
-          class: Quote,
-          inlineToolbar: true,
-        },
         checklist: {
           class: Checklist,
           inlineToolbar: true,
@@ -74,7 +67,6 @@ export default function NoteEditor({ defaultContent, ref, onReady, onChange }: P
           inlineToolbar: true,
         },
         delimiter: Delimiter,
-        image: SimpleImage,
         linkTool: Link,
         embed: Embed,
         code: Code,

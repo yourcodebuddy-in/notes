@@ -8,6 +8,7 @@ import { nextCookies } from "better-auth/next-js";
 import { magicLink } from "better-auth/plugins";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { initUser } from "./auth.init";
 import { sendMail } from "./mail";
 
 export const auth = betterAuth({
@@ -45,6 +46,15 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          initUser(user);
+        },
+      },
     },
   },
 });

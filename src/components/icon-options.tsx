@@ -23,7 +23,7 @@ export function IconOptions({ selectedIcon, setSelectedIcon }: Props) {
           <CarouselItem key={name} className="pl-2 basis-1/6 md:basis-[calc(1/8*100%)]">
             <button
               type="button"
-              className="w-full aspect-square rounded-lg relative border aria-selected:border-primary"
+              className="w-full aspect-square rounded-lg relative border-2 aria-selected:border-primary"
               aria-selected={name === selectedIcon}
               onClick={() => setSelectedIcon?.(name)}
             >

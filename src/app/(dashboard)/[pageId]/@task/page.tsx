@@ -36,7 +36,7 @@ export default async function Page({ searchParams }: Props) {
             />
           </div>
           <div className="max-w-[650px] mx-auto">
-            <EditableTitle id={note} title={data.title} />
+            <EditableTitle key={note} id={note} title={data.title} />
           </div>
           <NoteDetails key={note} id={note} content={data.content} pinned={data.pinned} />
         </div>

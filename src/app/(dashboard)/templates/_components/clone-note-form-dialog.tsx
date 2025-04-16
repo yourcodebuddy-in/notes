@@ -23,7 +23,7 @@ interface Props {
 
 export function CloneNoteFormDialog({ open, onOpenChange, pages }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [templateId, setTemplateId] = useState("");
+  const [templateId, setTemplateId] = useState("simple-note");
   const [pageId, setPageId] = useState("");
 
   async function cloneTemplateToNote(e: React.FormEvent<HTMLFormElement>) {
@@ -86,7 +86,7 @@ export function CloneNoteFormDialog({ open, onOpenChange, pages }: Props) {
               ))}
             </SelectContent>
           </Select>
-          <Button className="w-full" disabled={isLoading} isLoading={isLoading}>
+          <Button className="w-full" disabled={isLoading || !pageId} isLoading={isLoading}>
             Confirm
           </Button>
         </form>

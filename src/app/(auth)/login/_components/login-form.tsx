@@ -27,7 +27,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
       return;
     }
 
-    toast.success("Check your email for a login link");
+    toast.success("Check your email inbox/spam folder for a login link");
   }
 
   return (

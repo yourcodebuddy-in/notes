@@ -41,6 +41,7 @@ export function NoteActions({ id, content, pinned, className }: Props) {
       setIsCopying(true);
       const text = parseEditorJSToText(JSON.parse(content));
       await navigator.clipboard.writeText(text);
+      toast.success("Note copied successfully");
     } catch (_error) {
       toast.error("Failed to copy note");
     } finally {
